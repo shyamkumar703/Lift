@@ -15,9 +15,8 @@ class ViewController: UIViewController {
         return view
     }()
     
-    lazy var bottomView: UIView = {
-        let view = UIView()
-        view.backgroundColor = .backgroundGray
+    lazy var bottomView: HistoryTableView = {
+        let view = HistoryTableView()
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
@@ -46,7 +45,5 @@ class ViewController: UIViewController {
         bottomView.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
         bottomView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
     }
-
-
 }
 

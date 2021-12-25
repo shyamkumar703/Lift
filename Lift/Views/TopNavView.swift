@@ -54,7 +54,7 @@ class TopNavView: UIView {
         let label = UILabel()
         label.text = "Trends"
         label.font = .regularFont.withSize(15)
-        label.textColor = .barGray
+        label.textColor = .gray
         label.tag = 1
         label.isUserInteractionEnabled = true
         
@@ -122,7 +122,7 @@ class TopNavView: UIView {
             UIView.animate(withDuration: 0.3, animations: {
                 self.superview?.layoutIfNeeded()
                 newLabel.textColor = .liftGreen
-                oldLabel.textColor = .barGray
+                oldLabel.textColor = .gray
             })
         }
     }

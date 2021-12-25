@@ -23,19 +23,19 @@ struct BarViewModel {
         segOneColor: UIColor = .liftTeal
     ) {
         let segOneLargeAttrs: [NSAttributedString.Key: Any] = [
-            .font: UIFont.regularFont.withSize(20),
+            .font: UIFont.regularFont.withSize(16),
             .foregroundColor: UIColor.white
         ]
         let segOneSmallAttrs: [NSAttributedString.Key: Any] = [
-            .font: UIFont.regularFont.withSize(12),
+            .font: UIFont.regularFont.withSize(10),
             .foregroundColor: UIColor.white
         ]
         let segLargeAttrs: [NSAttributedString.Key: Any] = [
-            .font: UIFont.regularFont.withSize(20),
+            .font: UIFont.regularFont.withSize(16),
             .foregroundColor: UIColor.black
         ]
         let segSmallAttrs: [NSAttributedString.Key: Any] = [
-            .font: UIFont.regularFont.withSize(12),
+            .font: UIFont.regularFont.withSize(10),
             .foregroundColor: UIColor.black
         ]
         segOne = constructAttributedString(
