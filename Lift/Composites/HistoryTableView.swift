@@ -62,18 +62,6 @@ extension HistoryTableView: UITableViewDelegate, UITableViewDataSource {
         }
         return UITableViewCell()
     }
-    
-//    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-//        if let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: headerId) as? HistoryTableViewHeader {
-//            return header
-//        }
-//        return UITableViewHeaderFooterView()
-//    }
-//    
-//    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-//        40
-//    }
-    
 }
 
 class HistoryTableViewCell: UITableViewCell {
@@ -137,9 +125,9 @@ class HistoryTableViewCell: UITableViewCell {
         outerView.rightAnchor.constraint(equalTo: rightAnchor, constant: -16).isActive = true
         outerView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -20).isActive = true
         
-        outerStack.topAnchor.constraint(equalTo: outerView.topAnchor, constant: 8).isActive = true
+        outerStack.topAnchor.constraint(equalTo: outerView.topAnchor, constant: 12).isActive = true
         outerStack.leftAnchor.constraint(equalTo: outerView.leftAnchor, constant: 16).isActive = true
-        outerStack.bottomAnchor.constraint(equalTo: outerView.bottomAnchor, constant: -8).isActive = true
+        outerStack.bottomAnchor.constraint(equalTo: outerView.bottomAnchor, constant: -12).isActive = true
         outerStack.rightAnchor.constraint(equalTo: outerView.rightAnchor, constant: -16).isActive = true
     }
 }

@@ -19,3 +19,10 @@ func constructAttributedString(
     mutStr1.append(mutStr2)
     return mutStr1
 }
+
+func constrain(view: UIView, to: UIView, constant: CGFloat = 0) {
+    view.topAnchor.constraint(equalTo: to.topAnchor, constant: constant).isActive = true
+    view.leftAnchor.constraint(equalTo: to.leftAnchor, constant: constant).isActive = true
+    view.rightAnchor.constraint(equalTo: to.rightAnchor, constant: -1 * constant).isActive = true
+    view.bottomAnchor.constraint(equalTo: to.bottomAnchor, constant: -1 * constant).isActive = true
+}

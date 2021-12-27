@@ -26,6 +26,13 @@
 		010D68D12776F2B7001FCF9B /* StatsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 010D68D02776F2B7001FCF9B /* StatsView.swift */; };
 		010D68D32776F82F001FCF9B /* TopNavView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 010D68D22776F82F001FCF9B /* TopNavView.swift */; };
 		010D68D627770405001FCF9B /* HistoryTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 010D68D527770405001FCF9B /* HistoryTableView.swift */; };
+		018E4B7B27777D5E00F0AA9E /* TrendsTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 018E4B7A27777D5E00F0AA9E /* TrendsTableView.swift */; };
+		018E4B7D27777F9000F0AA9E /* LineChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 018E4B7C27777F9000F0AA9E /* LineChart.swift */; };
+		018E4B7F277783B200F0AA9E /* BookmarkLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 018E4B7E277783B200F0AA9E /* BookmarkLabel.swift */; };
+		018E4B812778F3ED00F0AA9E /* ColorCircle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 018E4B802778F3ED00F0AA9E /* ColorCircle.swift */; };
+		018E4B832778F4A300F0AA9E /* IPLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 018E4B822778F4A300F0AA9E /* IPLabel.swift */; };
+		018E4B852778F64600F0AA9E /* MinHistoryTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 018E4B842778F64600F0AA9E /* MinHistoryTableView.swift */; };
+		018E4B872778FE9500F0AA9E /* MinNavView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 018E4B862778FE9500F0AA9E /* MinNavView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -71,6 +78,13 @@
 		010D68D02776F2B7001FCF9B /* StatsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsView.swift; sourceTree = "<group>"; };
 		010D68D22776F82F001FCF9B /* TopNavView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopNavView.swift; sourceTree = "<group>"; };
 		010D68D527770405001FCF9B /* HistoryTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryTableView.swift; sourceTree = "<group>"; };
+		018E4B7A27777D5E00F0AA9E /* TrendsTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrendsTableView.swift; sourceTree = "<group>"; };
+		018E4B7C27777F9000F0AA9E /* LineChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LineChart.swift; sourceTree = "<group>"; };
+		018E4B7E277783B200F0AA9E /* BookmarkLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkLabel.swift; sourceTree = "<group>"; };
+		018E4B802778F3ED00F0AA9E /* ColorCircle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorCircle.swift; sourceTree = "<group>"; };
+		018E4B822778F4A300F0AA9E /* IPLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IPLabel.swift; sourceTree = "<group>"; };
+		018E4B842778F64600F0AA9E /* MinHistoryTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MinHistoryTableView.swift; sourceTree = "<group>"; };
+		018E4B862778FE9500F0AA9E /* MinNavView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MinNavView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -171,6 +185,11 @@
 				010D68C32776E9E3001FCF9B /* BarView.swift */,
 				010D68D02776F2B7001FCF9B /* StatsView.swift */,
 				010D68D22776F82F001FCF9B /* TopNavView.swift */,
+				018E4B7C27777F9000F0AA9E /* LineChart.swift */,
+				018E4B7E277783B200F0AA9E /* BookmarkLabel.swift */,
+				018E4B802778F3ED00F0AA9E /* ColorCircle.swift */,
+				018E4B822778F4A300F0AA9E /* IPLabel.swift */,
+				018E4B862778FE9500F0AA9E /* MinNavView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -189,6 +208,8 @@
 			isa = PBXGroup;
 			children = (
 				010D68D527770405001FCF9B /* HistoryTableView.swift */,
+				018E4B7A27777D5E00F0AA9E /* TrendsTableView.swift */,
+				018E4B842778F64600F0AA9E /* MinHistoryTableView.swift */,
 			);
 			path = Composites;
 			sourceTree = "<group>";
@@ -326,15 +347,22 @@
 			buildActionMask = 2147483647;
 			files = (
 				010D68C42776E9E3001FCF9B /* BarView.swift in Sources */,
+				018E4B852778F64600F0AA9E /* MinHistoryTableView.swift in Sources */,
+				018E4B7F277783B200F0AA9E /* BookmarkLabel.swift in Sources */,
 				010D68D32776F82F001FCF9B /* TopNavView.swift in Sources */,
 				010D68BF2776E754001FCF9B /* UIColor+Lift.swift in Sources */,
+				018E4B832778F4A300F0AA9E /* IPLabel.swift in Sources */,
+				018E4B872778FE9500F0AA9E /* MinNavView.swift in Sources */,
 				010D68952776E681001FCF9B /* Lift.xcdatamodeld in Sources */,
+				018E4B7D27777F9000F0AA9E /* LineChart.swift in Sources */,
 				010D68CD2776EB72001FCF9B /* UIFont+Lift.swift in Sources */,
+				018E4B7B27777D5E00F0AA9E /* TrendsTableView.swift in Sources */,
 				010D688F2776E681001FCF9B /* ViewController.swift in Sources */,
 				010D68D627770405001FCF9B /* HistoryTableView.swift in Sources */,
 				010D688B2776E681001FCF9B /* AppDelegate.swift in Sources */,
 				010D68D12776F2B7001FCF9B /* StatsView.swift in Sources */,
 				010D688D2776E681001FCF9B /* SceneDelegate.swift in Sources */,
+				018E4B812778F3ED00F0AA9E /* ColorCircle.swift in Sources */,
 				010D68C12776E916001FCF9B /* UIView+Lift.swift in Sources */,
 				010D68CF2776ECBC001FCF9B /* Globals.swift in Sources */,
 			);

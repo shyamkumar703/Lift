@@ -8,12 +8,19 @@
 import Foundation
 import UIKit
 
+protocol NavDelegate {
+    func switchToHistory()
+    func switchToTrends()
+}
+
 class TopNavView: UIView {
     
     var indicatorStartX: NSLayoutConstraint?
     var indicatorEndX: NSLayoutConstraint?
     
     var selectionChanged: Bool = false
+    
+    var delegate: NavDelegate?
     
     lazy var titleLabel: UILabel = {
         let label = UILabel()
@@ -111,12 +118,14 @@ class TopNavView: UIView {
                 if selectionChanged == false { return }
                 indicatorStartX?.constant = -8
                 indicatorEndX?.constant = 8
+                delegate?.switchToHistory()
             } else {
                 if selectionChanged == true { return }
                 indicatorStartX?.constant = 20 + history.bounds.width
                 indicatorEndX?.constant = 20 + trends.bounds.width
                 newLabel = trends
                 oldLabel = history
+                delegate?.switchToTrends()
             }
             selectionChanged = !selectionChanged
             UIView.animate(withDuration: 0.3, animations: {
