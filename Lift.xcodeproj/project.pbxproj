@@ -33,6 +33,12 @@
 		018E4B832778F4A300F0AA9E /* IPLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 018E4B822778F4A300F0AA9E /* IPLabel.swift */; };
 		018E4B852778F64600F0AA9E /* MinHistoryTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 018E4B842778F64600F0AA9E /* MinHistoryTableView.swift */; };
 		018E4B872778FE9500F0AA9E /* MinNavView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 018E4B862778FE9500F0AA9E /* MinNavView.swift */; };
+		018E4B89277A6EF200F0AA9E /* MinTrendsTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 018E4B88277A6EF200F0AA9E /* MinTrendsTableView.swift */; };
+		018E4B8C277A9FE100F0AA9E /* SelectWorkoutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 018E4B8B277A9FE100F0AA9E /* SelectWorkoutViewController.swift */; };
+		018E4B8E277AA1FB00F0AA9E /* CreateWorkoutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 018E4B8D277AA1FB00F0AA9E /* CreateWorkoutViewController.swift */; };
+		018E4B90277AA3D900F0AA9E /* ColorSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 018E4B8F277AA3D900F0AA9E /* ColorSelector.swift */; };
+		018E4B92277AC8EF00F0AA9E /* WorkoutTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 018E4B91277AC8EF00F0AA9E /* WorkoutTableView.swift */; };
+		018E4B94277ADF0D00F0AA9E /* UITextField+Lift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 018E4B93277ADF0D00F0AA9E /* UITextField+Lift.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -85,6 +91,12 @@
 		018E4B822778F4A300F0AA9E /* IPLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IPLabel.swift; sourceTree = "<group>"; };
 		018E4B842778F64600F0AA9E /* MinHistoryTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MinHistoryTableView.swift; sourceTree = "<group>"; };
 		018E4B862778FE9500F0AA9E /* MinNavView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MinNavView.swift; sourceTree = "<group>"; };
+		018E4B88277A6EF200F0AA9E /* MinTrendsTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MinTrendsTableView.swift; sourceTree = "<group>"; };
+		018E4B8B277A9FE100F0AA9E /* SelectWorkoutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectWorkoutViewController.swift; sourceTree = "<group>"; };
+		018E4B8D277AA1FB00F0AA9E /* CreateWorkoutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateWorkoutViewController.swift; sourceTree = "<group>"; };
+		018E4B8F277AA3D900F0AA9E /* ColorSelector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorSelector.swift; sourceTree = "<group>"; };
+		018E4B91277AC8EF00F0AA9E /* WorkoutTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutTableView.swift; sourceTree = "<group>"; };
+		018E4B93277ADF0D00F0AA9E /* UITextField+Lift.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+Lift.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -141,7 +153,7 @@
 				010D68BD2776E740001FCF9B /* Extensions */,
 				010D688A2776E681001FCF9B /* AppDelegate.swift */,
 				010D688C2776E681001FCF9B /* SceneDelegate.swift */,
-				010D688E2776E681001FCF9B /* ViewController.swift */,
+				018E4B8A277A9FC600F0AA9E /* Controllers */,
 				010D68962776E683001FCF9B /* Assets.xcassets */,
 				010D68982776E683001FCF9B /* LaunchScreen.storyboard */,
 				010D689B2776E683001FCF9B /* Info.plist */,
@@ -174,6 +186,7 @@
 				010D68BE2776E754001FCF9B /* UIColor+Lift.swift */,
 				010D68C02776E916001FCF9B /* UIView+Lift.swift */,
 				010D68CC2776EB72001FCF9B /* UIFont+Lift.swift */,
+				018E4B93277ADF0D00F0AA9E /* UITextField+Lift.swift */,
 				010D68CE2776ECBC001FCF9B /* Globals.swift */,
 			);
 			path = Extensions;
@@ -190,6 +203,7 @@
 				018E4B802778F3ED00F0AA9E /* ColorCircle.swift */,
 				018E4B822778F4A300F0AA9E /* IPLabel.swift */,
 				018E4B862778FE9500F0AA9E /* MinNavView.swift */,
+				018E4B8F277AA3D900F0AA9E /* ColorSelector.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -210,8 +224,20 @@
 				010D68D527770405001FCF9B /* HistoryTableView.swift */,
 				018E4B7A27777D5E00F0AA9E /* TrendsTableView.swift */,
 				018E4B842778F64600F0AA9E /* MinHistoryTableView.swift */,
+				018E4B88277A6EF200F0AA9E /* MinTrendsTableView.swift */,
+				018E4B91277AC8EF00F0AA9E /* WorkoutTableView.swift */,
 			);
 			path = Composites;
+			sourceTree = "<group>";
+		};
+		018E4B8A277A9FC600F0AA9E /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				010D688E2776E681001FCF9B /* ViewController.swift */,
+				018E4B8B277A9FE100F0AA9E /* SelectWorkoutViewController.swift */,
+				018E4B8D277AA1FB00F0AA9E /* CreateWorkoutViewController.swift */,
+			);
+			path = Controllers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -350,13 +376,16 @@
 				018E4B852778F64600F0AA9E /* MinHistoryTableView.swift in Sources */,
 				018E4B7F277783B200F0AA9E /* BookmarkLabel.swift in Sources */,
 				010D68D32776F82F001FCF9B /* TopNavView.swift in Sources */,
+				018E4B94277ADF0D00F0AA9E /* UITextField+Lift.swift in Sources */,
 				010D68BF2776E754001FCF9B /* UIColor+Lift.swift in Sources */,
 				018E4B832778F4A300F0AA9E /* IPLabel.swift in Sources */,
+				018E4B8E277AA1FB00F0AA9E /* CreateWorkoutViewController.swift in Sources */,
 				018E4B872778FE9500F0AA9E /* MinNavView.swift in Sources */,
 				010D68952776E681001FCF9B /* Lift.xcdatamodeld in Sources */,
 				018E4B7D27777F9000F0AA9E /* LineChart.swift in Sources */,
 				010D68CD2776EB72001FCF9B /* UIFont+Lift.swift in Sources */,
 				018E4B7B27777D5E00F0AA9E /* TrendsTableView.swift in Sources */,
+				018E4B90277AA3D900F0AA9E /* ColorSelector.swift in Sources */,
 				010D688F2776E681001FCF9B /* ViewController.swift in Sources */,
 				010D68D627770405001FCF9B /* HistoryTableView.swift in Sources */,
 				010D688B2776E681001FCF9B /* AppDelegate.swift in Sources */,
@@ -364,7 +393,10 @@
 				010D688D2776E681001FCF9B /* SceneDelegate.swift in Sources */,
 				018E4B812778F3ED00F0AA9E /* ColorCircle.swift in Sources */,
 				010D68C12776E916001FCF9B /* UIView+Lift.swift in Sources */,
+				018E4B8C277A9FE100F0AA9E /* SelectWorkoutViewController.swift in Sources */,
+				018E4B89277A6EF200F0AA9E /* MinTrendsTableView.swift in Sources */,
 				010D68CF2776ECBC001FCF9B /* Globals.swift in Sources */,
+				018E4B92277AC8EF00F0AA9E /* WorkoutTableView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

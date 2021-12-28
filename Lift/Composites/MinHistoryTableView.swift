@@ -87,13 +87,13 @@ extension MinHistoryTableView: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        64
+        60
     }
 }
 
 class MinHistoryTableViewCell: UITableViewCell {
     
-    let circleDim: CGFloat = 16
+    let circleDim: CGFloat = 12
     
     var model = MinHistoryTableViewCellModel() {
         didSet {
@@ -150,13 +150,14 @@ class MinHistoryTableViewCell: UITableViewCell {
     func setupConstraints() {
         circleView.heightAnchor.constraint(equalToConstant: circleDim).isActive = true
         circleView.widthAnchor.constraint(equalToConstant: circleDim).isActive = true
-        circleView.centerYAnchor.constraint(equalTo: centerYAnchor, constant: 8).isActive = true
+//        circleView.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
+        circleView.topAnchor.constraint(equalTo: topAnchor, constant: 16).isActive = true
         circleView.leftAnchor.constraint(equalTo: leftAnchor, constant: 12).isActive = true
         
         stack.leftAnchor.constraint(equalTo: circleView.rightAnchor, constant: 20).isActive = true
         stack.topAnchor.constraint(equalTo: circleView.topAnchor, constant: -4).isActive = true
         stack.rightAnchor.constraint(equalTo: rightAnchor, constant: -8).isActive = true
-        stack.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -4).isActive = true
+        stack.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -16).isActive = true
         
     }
     
