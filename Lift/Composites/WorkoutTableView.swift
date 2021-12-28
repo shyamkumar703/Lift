@@ -10,11 +10,13 @@ import UIKit
 fileprivate var headerId: String = "header"
 fileprivate var cellId: String = "cell"
 
-struct WorkoutTableViewModel {
+class WorkoutTableViewModel {
     var exercises: [ExerciseModel]
+    var inWorkout: Bool
     
-    init(exercises: [ExerciseModel] = []) {
+    init(exercises: [ExerciseModel] = [], inWorkout: Bool = false) {
         self.exercises = exercises
+        self.inWorkout = inWorkout
     }
 }
 
@@ -61,6 +63,14 @@ class WorkoutTableView: UIView {
         }
     }
     
+    lazy var footer: WorkoutTableFooter = {
+        let footer = WorkoutTableFooter()
+        footer.frame = CGRect(x: 0, y: 0, width: 0, height: 100)
+        footer.delegate = self
+        footer.isUserInteractionEnabled = true
+        return footer
+    }()
+    
     lazy var tableView: UITableView = {
         let table = UITableView()
         table.translatesAutoresizingMaskIntoConstraints = false
@@ -70,7 +80,7 @@ class WorkoutTableView: UIView {
         table.backgroundColor = .clear
         table.register(ExerciseHeader.self, forHeaderFooterViewReuseIdentifier: headerId)
         table.register(SetCell.self, forCellReuseIdentifier: cellId)
-        table.tableFooterView = UIView()
+        table.isUserInteractionEnabled = true
         return table
     }()
     
@@ -82,6 +92,10 @@ class WorkoutTableView: UIView {
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    override func layoutSubviews() {
+        tableView.tableFooterView = footer
     }
     
     func setupView() {
@@ -102,7 +116,7 @@ class WorkoutTableView: UIView {
     }
 }
 
-extension WorkoutTableView: UITableViewDelegate, UITableViewDataSource {
+extension WorkoutTableView: UITableViewDelegate, UITableViewDataSource, HeaderDelegate, WorkoutTableFooterDelegate {
     func numberOfSections(in tableView: UITableView) -> Int {
         model.exercises.count
     }
@@ -124,12 +138,32 @@ extension WorkoutTableView: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         if let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: headerId) as? ExerciseHeader {
             header.backgroundView = UIView()
-            header.backgroundView?.backgroundColor = .clear
+            header.backgroundView?.backgroundColor = .white
             header.model.title = model.exercises[section].title
             header.tag = section
+            header.delegate = self
             return header
         }
         return nil
+    }
+    
+    func addSet(to section: Int) {
+        model.exercises[section].sets.append(SetModel(setNumber: model.exercises[section].sets.count + 1, inWorkout: model.inWorkout))
+        let indexPath = IndexPath(row: model.exercises[section].sets.count - 1, section: section)
+        tableView.insertRows(at: [indexPath], with: .fade)
+    }
+    
+    func addExercise() {
+        model.exercises.append(ExerciseModel(sets: [SetModel(inWorkout: model.inWorkout)]))
+        tableView.insertSections(IndexSet(integer: model.exercises.count - 1), with: .fade)
+    }
+}
+
+extension WorkoutTableView: ColorSelectorDelegate {
+    func selectionChanged(color: UIColor?) {
+        if let color = color {
+            footer.animateColorChange(newColor: color)
+        }
     }
 }
 
@@ -141,6 +175,10 @@ struct ExerciseHeaderModel {
     }
 }
 
+protocol HeaderDelegate {
+    func addSet(to section: Int)
+}
+
 class ExerciseHeader: UITableViewHeaderFooterView {
     
     var model: ExerciseHeaderModel = ExerciseHeaderModel() {
@@ -148,6 +186,8 @@ class ExerciseHeader: UITableViewHeaderFooterView {
             updateView()
         }
     }
+    
+    var delegate: HeaderDelegate?
     
     lazy var stack: UIStackView = {
         let stack = UIStackView()
@@ -172,6 +212,7 @@ class ExerciseHeader: UITableViewHeaderFooterView {
         let button = UIButton()
         button.setImage(UIImage(systemName: "plus"), for: .normal)
         button.tintColor = .black
+        button.addTarget(self, action: #selector(addSetTapped), for: .touchUpInside)
         return button
     }()
     
@@ -198,6 +239,10 @@ class ExerciseHeader: UITableViewHeaderFooterView {
     
     func updateView() {
         titleTextField.text = model.title
+    }
+    
+    @objc func addSetTapped() {
+        delegate?.addSet(to: tag)
     }
 }
 
@@ -366,6 +411,57 @@ class SetCell: UITableViewCell, UITextFieldDelegate {
                 }
             }
         }
+    }
+}
+
+protocol WorkoutTableFooterDelegate {
+    func addExercise()
+}
+
+class WorkoutTableFooter: UIView {
+    
+    var delegate: WorkoutTableFooterDelegate?
+    
+    lazy var addExerciseButton: UIButton = {
+        let button = UIButton()
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.backgroundColor = .liftRed
+        button.heightAnchor.constraint(equalToConstant: 32).isActive = true
+        button.widthAnchor.constraint(equalToConstant: 32).isActive = true
+        button.layer.cornerRadius = 16
+        button.tintColor = .white
+        button.setImage(UIImage(systemName: "plus"), for: .normal)
+        button.addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
+        return button
+    }()
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        setupView()
+        setupConstraints()
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    func setupView() {
+        addSubview(addExerciseButton)
+    }
+    
+    func setupConstraints() {
+        addExerciseButton.topAnchor.constraint(equalTo: topAnchor, constant: 32).isActive = true
+        addExerciseButton.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
+    }
+    
+    func animateColorChange(newColor: UIColor) {
+        UIView.animate(withDuration: 0.3, animations: {
+            self.addExerciseButton.backgroundColor = newColor
+        })
+    }
+    
+    @objc func buttonTapped() {
+        delegate?.addExercise()
     }
 }
 

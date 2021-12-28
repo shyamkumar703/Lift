@@ -24,7 +24,7 @@ class CreateWorkoutViewController: UIViewController {
         let view = ColorSelector()
         view.model = ColorSelectorModel()
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.delegate = self
+        view.delegate = tableView
         return view
     }()
     
@@ -34,10 +34,11 @@ class CreateWorkoutViewController: UIViewController {
             exercises: [
                 ExerciseModel(
                     sets: [
-                        SetModel(setNumber: 1, goalReps: 5, weight: 135, inWorkout: true, completedReps: nil, completedWeight: nil)
+                        SetModel()
                     ]
                 )
-            ]
+            ],
+            inWorkout: false
         )
         tv.model = model
         tv.translatesAutoresizingMaskIntoConstraints = false
@@ -77,11 +78,6 @@ class CreateWorkoutViewController: UIViewController {
         tableView.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
         tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
         
-    }
-}
-
-extension CreateWorkoutViewController: ColorSelectorDelegate {
-    func selectionChanged(color: UIColor?) {
     }
 }
 
