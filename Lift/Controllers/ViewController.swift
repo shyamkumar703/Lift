@@ -36,22 +36,13 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
     lazy var table: MinHistoryTableView = {
         let view = MinHistoryTableView()
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.model = MinHistoryTableViewModel(cells: [
-            MinHistoryTableViewCellModel(color: .liftRed, name: "Pull"),
-            MinHistoryTableViewCellModel(color: .liftTeal, name: "Push"),
-            MinHistoryTableViewCellModel(color: .liftPurple, name: "Legs")
-        ])
+        view.model = CRUD.fetchHistoryData()
         return view
     }()
     
     lazy var trendsTable: MinTrendsTableView = {
         let view = MinTrendsTableView()
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.model = MinTrendsTableViewModel(cells: [
-            MinTrendsTableViewCellModel(color: .liftRed, title: "Pull", ipArr: ["22 JAN 2022", "35 mins", "+5 lbs"], weightArr: [0, 2, 1, 3]),
-            MinTrendsTableViewCellModel(color: .liftTeal, title: "Push", ipArr: ["22 JAN 2022", "35 mins", "+5 lbs"], weightArr: [0, 2, 1, 3]),
-            MinTrendsTableViewCellModel(color: .liftPurple, title: "Legs", ipArr: ["22 JAN 2022", "35 mins", "+5 lbs"], weightArr: [0, 2, 1, 3])
-        ])
         view.alpha = 0
         return view
     }()

@@ -39,6 +39,8 @@
 		018E4B90277AA3D900F0AA9E /* ColorSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 018E4B8F277AA3D900F0AA9E /* ColorSelector.swift */; };
 		018E4B92277AC8EF00F0AA9E /* WorkoutTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 018E4B91277AC8EF00F0AA9E /* WorkoutTableView.swift */; };
 		018E4B94277ADF0D00F0AA9E /* UITextField+Lift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 018E4B93277ADF0D00F0AA9E /* UITextField+Lift.swift */; };
+		01BDDDED277BB0220000F093 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01BDDDEC277BB0220000F093 /* Model.swift */; };
+		01BDDDF0277BCCA00000F093 /* CRUD.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01BDDDEF277BCCA00000F093 /* CRUD.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -97,6 +99,8 @@
 		018E4B8F277AA3D900F0AA9E /* ColorSelector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorSelector.swift; sourceTree = "<group>"; };
 		018E4B91277AC8EF00F0AA9E /* WorkoutTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutTableView.swift; sourceTree = "<group>"; };
 		018E4B93277ADF0D00F0AA9E /* UITextField+Lift.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+Lift.swift"; sourceTree = "<group>"; };
+		01BDDDEC277BB0220000F093 /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
+		01BDDDEF277BCCA00000F093 /* CRUD.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CRUD.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -147,13 +151,14 @@
 		010D68892776E680001FCF9B /* Lift */ = {
 			isa = PBXGroup;
 			children = (
+				01BDDDEE277BCC900000F093 /* Model */,
 				010D68C52776EAC4001FCF9B /* Font */,
 				010D68D4277703EE001FCF9B /* Composites */,
 				010D68C22776E9C8001FCF9B /* Views */,
 				010D68BD2776E740001FCF9B /* Extensions */,
+				018E4B8A277A9FC600F0AA9E /* Controllers */,
 				010D688A2776E681001FCF9B /* AppDelegate.swift */,
 				010D688C2776E681001FCF9B /* SceneDelegate.swift */,
-				018E4B8A277A9FC600F0AA9E /* Controllers */,
 				010D68962776E683001FCF9B /* Assets.xcassets */,
 				010D68982776E683001FCF9B /* LaunchScreen.storyboard */,
 				010D689B2776E683001FCF9B /* Info.plist */,
@@ -238,6 +243,15 @@
 				018E4B8D277AA1FB00F0AA9E /* CreateWorkoutViewController.swift */,
 			);
 			path = Controllers;
+			sourceTree = "<group>";
+		};
+		01BDDDEE277BCC900000F093 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				01BDDDEC277BB0220000F093 /* Model.swift */,
+				01BDDDEF277BCCA00000F093 /* CRUD.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -374,6 +388,7 @@
 			files = (
 				010D68C42776E9E3001FCF9B /* BarView.swift in Sources */,
 				018E4B852778F64600F0AA9E /* MinHistoryTableView.swift in Sources */,
+				01BDDDF0277BCCA00000F093 /* CRUD.swift in Sources */,
 				018E4B7F277783B200F0AA9E /* BookmarkLabel.swift in Sources */,
 				010D68D32776F82F001FCF9B /* TopNavView.swift in Sources */,
 				018E4B94277ADF0D00F0AA9E /* UITextField+Lift.swift in Sources */,
@@ -391,6 +406,7 @@
 				010D688B2776E681001FCF9B /* AppDelegate.swift in Sources */,
 				010D68D12776F2B7001FCF9B /* StatsView.swift in Sources */,
 				010D688D2776E681001FCF9B /* SceneDelegate.swift in Sources */,
+				01BDDDED277BB0220000F093 /* Model.swift in Sources */,
 				018E4B812778F3ED00F0AA9E /* ColorCircle.swift in Sources */,
 				010D68C12776E916001FCF9B /* UIView+Lift.swift in Sources */,
 				018E4B8C277A9FE100F0AA9E /* SelectWorkoutViewController.swift in Sources */,

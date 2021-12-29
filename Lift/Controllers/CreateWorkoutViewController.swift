@@ -11,6 +11,23 @@ class CreateWorkoutViewController: UIViewController {
     
     // height of color selector must be 24
     
+    lazy var saveButton: UIButton = {
+        let button = UIButton()
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.setAttributedTitle(
+            NSAttributedString(
+                string: "Save",
+                attributes: [
+                    .font: UIFont.regularFont.withSize(15),
+                    .foregroundColor: UIColor.black
+                ]
+            ),
+            for: .normal
+        )
+        button.addTarget(self, action: #selector(saveTapped), for: .touchUpInside)
+        return button
+    }()
+    
     lazy var workoutNameField: UITextField = {
         let field = UITextField()
         field.translatesAutoresizingMaskIntoConstraints = false
@@ -60,11 +77,16 @@ class CreateWorkoutViewController: UIViewController {
         view.addSubview(workoutNameField)
         view.addSubview(colorSelector)
         view.addSubview(tableView)
+        view.addSubview(saveButton)
         setupHideKeyboardOnTap()
     }
     
     func setupConstraints() {
-        workoutNameField.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20).isActive = true
+        
+        saveButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 8).isActive = true
+        saveButton.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -16).isActive = true
+        
+        workoutNameField.topAnchor.constraint(equalTo: saveButton.bottomAnchor).isActive = true
         workoutNameField.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 16).isActive = true
         workoutNameField.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -16).isActive = true
         
@@ -78,6 +100,10 @@ class CreateWorkoutViewController: UIViewController {
         tableView.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
         tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
         
+    }
+    
+    @objc func saveTapped() {
+        print("save")
     }
 }
 

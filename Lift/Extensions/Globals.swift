@@ -8,6 +8,18 @@
 import Foundation
 import UIKit
 
+var dateFormatter: DateFormatter = {
+    let formatter = DateFormatter()
+    formatter.dateFormat = "dd MMM yyyy"
+    return formatter
+}()
+
+var numberFormatter: NumberFormatter = {
+    let formatter = NumberFormatter()
+    formatter.numberStyle = .decimal
+    return formatter
+}()
+
 func constructAttributedString(
     str1: String,
     attr1: [NSAttributedString.Key: Any],
