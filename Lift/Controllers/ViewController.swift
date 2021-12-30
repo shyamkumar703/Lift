@@ -43,6 +43,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
     lazy var trendsTable: MinTrendsTableView = {
         let view = MinTrendsTableView()
         view.translatesAutoresizingMaskIntoConstraints = false
+        view.model = CRUD.fetchTrendsData()
         view.alpha = 0
         return view
     }()

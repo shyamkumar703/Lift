@@ -22,8 +22,9 @@ struct MinTrendsTableViewCellModel {
     var title: String
     var ipArr: [String]
     var weightArr: [(Int, Int)]
+    var workouts: [Workout] = []
     
-    init(color: UIColor = .liftRed, title: String = "", ipArr: [String] = [], weightArr: [Int] = []) {
+    init(color: UIColor = .liftRed, title: String = "", ipArr: [String] = [], weightArr: [Int] = [], workouts: [Workout] = []) {
         self.color = color
         self.title = title
         self.ipArr = ipArr
@@ -31,6 +32,7 @@ struct MinTrendsTableViewCellModel {
         for i in 0..<weightArr.count {
             self.weightArr.append((i, weightArr[i]))
         }
+        self.workouts = workouts
     }
 }
 
@@ -152,6 +154,8 @@ class MinTrendsTableViewCell: UITableViewCell {
     
     lazy var graph: LineChart = {
         let chart = LineChart()
+        chart.pointChangedCompletion = didDrag(current:last:)
+        chart.dragEndedCompletion = didEndDrag
         chart.heightAnchor.constraint(equalToConstant: 32).isActive = true
         return chart
     }()
@@ -213,10 +217,41 @@ class MinTrendsTableViewCell: UITableViewCell {
                 .font: UIFont.regularFont.withSize(12),
                 .foregroundColor: UIColor.black
             ]
-            return constructAttributedString(str1: String(int), attr1: titleAttrs, str2: "lbs", attr2: subAttrs)
+            return constructAttributedString(str1: numberFormatter.string(from: NSNumber(value: int)) ?? "", attr1: titleAttrs, str2: "lbs", attr2: subAttrs)
         }
         
         return NSMutableAttributedString()
+    }
+    
+    func didDrag(current: CGPoint, last: CGPoint) {
+        let newIndex = graph.reverseNormalizeX(x: current.x)
+        updateGraph(with: newIndex)
+    }
+    
+    func didEndDrag() {
+        weightLabel.attributedText = weightToString(int: model.weightArr.last?.1)
+        ipLabel.model.stats = createIpArr(for: model.workouts.count - 1)
+    }
+    
+    func updateGraph(with index: Int) {
+        weightLabel.attributedText = weightToString(int: model.weightArr[index].1)
+        ipLabel.model.stats = createIpArr(for: index)
+    }
+    
+    func createIpArr(for index: Int) -> [String] {
+        let workout = model.workouts[index]
+        var ipArr = [
+            dateFormatter.string(from: workout.dateCompleted ?? Date()),
+            "\(workout.completedTime ?? 0) mins"
+        ]
+        var progressString = ""
+        if index - 1 < 0 { progressString = "- lbs"} else {
+            let secondToLast = model.workouts[index - 1]
+            progressString = ((workout.getWeight() ?? 0) - (secondToLast.getWeight() ?? 0) < 0) ? "" : "+"
+            progressString += "\((workout.getWeight() ?? 0) - (secondToLast.getWeight() ?? 0)) lbs"
+        }
+        ipArr.append(progressString)
+        return ipArr
     }
     
     func addPan() {

@@ -34,7 +34,7 @@ class CRUD {
         }
     }
     
-    private static func retrieveData<T: NSObject>(entityKey: String = entityName, elementKey: String = workoutName, returnType: T.Type) -> [T]? {
+    static func retrieveData<T: NSObject>(entityKey: String = entityName, elementKey: String = workoutName, returnType: T.Type) -> [T]? {
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return nil }
         let managedContext = appDelegate.persistentContainer.viewContext
         
@@ -53,8 +53,8 @@ class CRUD {
         return nil
     }
     
-    private static func fetchAndMap<InternalObject: NSObject, MappedObject: Any>(mapping: (InternalObject) -> MappedObject?) -> [MappedObject] {
-        if let workouts = retrieveData(returnType: InternalObject.self),
+    private static func fetchAndMap<InternalObject: NSObject, MappedObject: Any>(mapping: (InternalObject) -> MappedObject?, sort: ([InternalObject]?) -> [InternalObject]?) -> [MappedObject] {
+        if let workouts = sort(retrieveData(returnType: InternalObject.self)),
            let mapped = workouts.map({mapping($0)}).filter({$0 != nil}) as? [MappedObject] {
             return mapped
         }
@@ -69,6 +69,73 @@ class CRUD {
             return nil
         }
         
-        return MinHistoryTableViewModel(cells: fetchAndMap(mapping: mapping(workout:)))
+        func sort(arr: [Workout]?) -> [Workout]? {
+            if let arr = arr {
+                return arr.sorted(by: { w1, w2 in
+                    if let d1 = w1.dateCompleted,
+                       let d2 = w2.dateCompleted {
+                        return d1 > d2
+                    }
+                    return true
+                })
+            }
+            return nil
+        }
+        
+        return MinHistoryTableViewModel(cells: fetchAndMap(mapping: mapping(workout:), sort: sort(arr:)))
+    }
+    
+    static func fetchTrendsData() -> MinTrendsTableViewModel {
+        if let workouts = retrieveData(returnType: Workout.self) {
+            let uniqueWorkouts = fetchUniqueWorkouts()
+            let pairCellArr = uniqueWorkouts.map({ uw -> (Workout, [Workout]) in
+                let filteredWorkouts = workouts.filter({$0.title == uw.title && $0.completed}).sorted(by: { w1, w2 in
+                    if let date1 = w1.dateCompleted,
+                       let date2 = w2.dateCompleted {
+                        return date1 < date2
+                    }
+                    return true
+                })
+                return (uw, filteredWorkouts)
+            })
+            
+            var cells: [MinTrendsTableViewCellModel] = []
+            
+            for pair in pairCellArr {
+                if pair.1.count < 2 {
+                    continue
+                }
+                
+                if let lastWorkout = pair.1.last {
+                    let secondToLast = pair.1[pair.1.count - 2]
+                    var progressString = ((lastWorkout.getWeight() ?? 0) - (secondToLast.getWeight() ?? 0) < 0) ? "" : "+"
+                    progressString += "\((lastWorkout.getWeight() ?? 0) - (secondToLast.getWeight() ?? 0)) lbs"
+                    let ipArr = [
+                        dateFormatter.string(from: lastWorkout.dateCompleted ?? Date()),
+                        "\(lastWorkout.completedTime ?? 0) mins",
+                        progressString
+                    ]
+                    cells.append(MinTrendsTableViewCellModel(color: pair.0.color, title: pair.0.title, ipArr: ipArr, weightArr: pair.1.map({$0.getWeight() ?? 0}), workouts: pair.1))
+                }
+            }
+            return MinTrendsTableViewModel(cells: cells)
+        }
+        
+        return MinTrendsTableViewModel()
+    }
+}
+
+extension CRUD {
+    private static func fetchUniqueWorkouts() -> [Workout] {
+        if let workouts = retrieveData(returnType: Workout.self) {
+            var seen: [Workout] = []
+            _ = workouts.map({ workout in
+                if seen.filter({$0.title == workout.title}).count == 0 {
+                    seen.append(workout)
+                }
+            })
+            return seen
+        }
+        return []
     }
 }

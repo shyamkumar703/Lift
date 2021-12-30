@@ -19,7 +19,7 @@ class LiftTests: XCTestCase {
                         setNumber: 1,
                         goalReps: 5,
                         weight: 135,
-                        completedReps: 5,
+                        completedReps: 10,
                         completedWeight: 135
                     )
                 ]

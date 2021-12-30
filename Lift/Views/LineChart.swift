@@ -156,9 +156,22 @@ class LineChart: UIView, UIGestureRecognizerDelegate, Animatable {
         let minY = CGFloat(dataPoints.map {$0.1}.min() ?? 0)
         
         let xNorm = ((CGFloat(x) - minX) / (maxX - minX)) * (width/1.2) + (width / 9.6)
-        let yNorm = height - (((CGFloat(y) - minY) / (maxY - minY)) * (height / 1.2)) - (height / 9.6)
+        var yNorm = height - (((CGFloat(y) - minY) / (maxY - minY)) * (height / 1.2)) - (height / 9.6)
+        
+        if yNorm.isNaN {
+            yNorm = height / 2
+        }
         
         return CGPoint(x: xNorm, y: yNorm)
+    }
+    
+    func reverseNormalizeX(x: CGFloat) -> Int {
+        let width = self.bounds.width - 15
+        
+        let maxX = CGFloat(dataPoints.map {$0.0}.max() ?? 0)
+        let minX = CGFloat(dataPoints.map {$0.0}.min() ?? 0)
+        
+        return Int((((x - (width / 9.6)) / (width / 1.2)) * (maxX - minX)) + minX)
     }
 }
 
