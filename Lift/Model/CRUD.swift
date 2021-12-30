@@ -123,6 +123,21 @@ class CRUD {
         
         return MinTrendsTableViewModel()
     }
+    
+    static func fetchWorkoutsData() -> MinHistoryTableViewModel {
+        return MinHistoryTableViewModel(
+            cells: fetchUniqueWorkouts().map(
+                { workout in
+                    MinHistoryTableViewCellModel(
+                        color: workout.color,
+                        name: workout.title,
+                        ipArr: workout.exercises.map({$0.title}),
+                        workout: workout
+                    )
+                }
+            )
+        )
+    }
 }
 
 extension CRUD {

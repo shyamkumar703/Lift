@@ -9,7 +9,7 @@ import UIKit
 
 class CreateWorkoutViewController: UIViewController {
     
-    // height of color selector must be 24
+    var saveDelegate: SaveDelegate?
     
     lazy var saveButton: UIButton = {
         let button = UIButton()
@@ -72,6 +72,10 @@ class CreateWorkoutViewController: UIViewController {
         workoutNameField.becomeFirstResponder()
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        willDisappear()
+    }
+    
     func setupView() {
         view.backgroundColor = .white
         view.addSubview(workoutNameField)
@@ -79,6 +83,7 @@ class CreateWorkoutViewController: UIViewController {
         view.addSubview(tableView)
         view.addSubview(saveButton)
         setupHideKeyboardOnTap()
+        self.saveDelegate = tableView.model
     }
     
     func setupConstraints() {
@@ -103,7 +108,13 @@ class CreateWorkoutViewController: UIViewController {
     }
     
     @objc func saveTapped() {
-        print("save")
+        if let workout = saveDelegate?.toWorkout(),
+           let title = workoutNameField.text {
+            workout.title = title
+            workout.color = colorSelector.color
+            CRUD.saveObject(obj: workout, parentType: UserData.self)
+        }
+        dismiss(animated: true, completion: nil)
     }
 }
 

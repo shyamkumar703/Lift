@@ -10,7 +10,11 @@ import UIKit
 fileprivate var headerId: String = "header"
 fileprivate var cellId: String = "cell"
 
-class WorkoutTableViewModel {
+protocol SaveDelegate {
+    func toWorkout() -> Workout?
+}
+
+class WorkoutTableViewModel: SaveDelegate {
     var exercises: [ExerciseModel]
     var inWorkout: Bool
     
@@ -18,9 +22,17 @@ class WorkoutTableViewModel {
         self.exercises = exercises
         self.inWorkout = inWorkout
     }
+    
+    func toWorkout() -> Workout? {
+        if let exercises = exercises.map({ $0.toExercise() }).filter({ $0 != nil }) as? [Exercise] {
+            if exercises.count == 0 { return nil }
+            return Workout(exercises: exercises)
+        }
+        return nil
+    }
 }
 
-struct ExerciseModel {
+class ExerciseModel {
     var title: String
     var sets: [SetModel]
     
@@ -28,9 +40,17 @@ struct ExerciseModel {
         self.title = title
         self.sets = sets
     }
+    
+    func toExercise() -> Exercise? {
+        if let sets = sets.map({ $0.toWSet() }).filter({ $0 != nil }) as? [WSet] {
+            if sets.count == 0 { return nil }
+            return Exercise(title: title, sets: sets)
+        }
+        return nil
+    }
 }
 
-struct SetModel {
+class SetModel {
     var setNumber: Int
     var goalReps: Int?
     var weight: Int?
@@ -52,6 +72,20 @@ struct SetModel {
         self.inWorkout = inWorkout
         self.completedReps = completedReps
         self.completedWeight = completedWeight
+    }
+    
+    func toWSet() -> WSet? {
+        if let goalReps = goalReps,
+           let weight = weight {
+            return WSet(
+                setNumber: setNumber,
+                goalReps: goalReps,
+                weight: weight,
+                completedReps: completedReps,
+                completedWeight: completedWeight
+            )
+        }
+        return nil
     }
 }
 
@@ -139,7 +173,7 @@ extension WorkoutTableView: UITableViewDelegate, UITableViewDataSource, HeaderDe
         if let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: headerId) as? ExerciseHeader {
             header.backgroundView = UIView()
             header.backgroundView?.backgroundColor = .white
-            header.model.title = model.exercises[section].title
+            header.model = model.exercises[section]
             header.tag = section
             header.delegate = self
             return header
@@ -167,21 +201,13 @@ extension WorkoutTableView: ColorSelectorDelegate {
     }
 }
 
-struct ExerciseHeaderModel {
-    var title: String
-    
-    init(title: String = "") {
-        self.title = title
-    }
-}
-
 protocol HeaderDelegate {
     func addSet(to section: Int)
 }
 
-class ExerciseHeader: UITableViewHeaderFooterView {
+class ExerciseHeader: UITableViewHeaderFooterView, UITextFieldDelegate {
     
-    var model: ExerciseHeaderModel = ExerciseHeaderModel() {
+    var model: ExerciseModel = ExerciseModel() {
         didSet {
             updateView()
         }
@@ -205,6 +231,7 @@ class ExerciseHeader: UITableViewHeaderFooterView {
         field.textColor = .black
         field.textAlignment = .left
         field.font = .regularFont.withSize(20)
+        field.delegate = self
         return field
     }()
     
@@ -243,6 +270,12 @@ class ExerciseHeader: UITableViewHeaderFooterView {
     
     @objc func addSetTapped() {
         delegate?.addSet(to: tag)
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        if let text = textField.text {
+            model.title = text
+        }
     }
 }
 
@@ -339,7 +372,7 @@ class SetCell: UITableViewCell, UITextFieldDelegate {
         field.keyboardType = .numberPad
         field.textColor = .black
         field.textAlignment = .center
-        field.tag = 1
+        field.tag = 3
         field.delegate = self
         return field
     }()
@@ -351,7 +384,7 @@ class SetCell: UITableViewCell, UITextFieldDelegate {
         field.textColor = .black
         field.keyboardType = .numberPad
         field.textAlignment = .right
-        field.tag = 2
+        field.tag = 4
         field.delegate = self
         return field
     }()
@@ -391,9 +424,9 @@ class SetCell: UITableViewCell, UITextFieldDelegate {
     func textFieldDidBeginEditing(_ textField: UITextField) {
         if let textType = textField.getTextType() {
             switch textType {
-            case .reps:
+            case .reps, .completedReps:
                 textField.text = textField.text?.replacingOccurrences(of: " reps", with: "")
-            case .weight:
+            case .weight, .completedWeight:
                 textField.text = textField.text?.replacingOccurrences(of: " lbs", with: "")
             }
         }
@@ -406,8 +439,16 @@ class SetCell: UITableViewCell, UITextFieldDelegate {
                 switch textType {
                 case .reps:
                     textField.text = "\(text) reps"
+                    model.goalReps = Int(text)
                 case .weight:
                     textField.text = "\(text) lbs"
+                    model.weight = Int(text)
+                case .completedReps:
+                    textField.text = "\(text) reps"
+                    model.completedReps = Int(text)
+                case .completedWeight:
+                    textField.text = "\(text) lbs"
+                    model.completedWeight = Int(text)
                 }
             }
         }

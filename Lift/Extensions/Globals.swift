@@ -38,3 +38,11 @@ func constrain(view: UIView, to: UIView, constant: CGFloat = 0) {
     view.rightAnchor.constraint(equalTo: to.rightAnchor, constant: -1 * constant).isActive = true
     view.bottomAnchor.constraint(equalTo: to.bottomAnchor, constant: -1 * constant).isActive = true
 }
+
+extension UIViewController {
+    func willDisappear() {
+        if let presentingView = self.presentingViewController as? Reloadable {
+            presentingView.reload()
+        }
+    }
+}

@@ -13,11 +13,18 @@ struct MinHistoryTableViewCellModel {
     var color: UIColor
     var name: String
     var ipArr: [String]
+    var workout: Workout
     
-    init(color: UIColor = .liftTeal, name: String = "Pull", ipArr: [String] = ["22 JAN 2022", "1,418 lbs", "35 mins"]) {
+    init(
+        color: UIColor = .liftTeal,
+        name: String = "Pull",
+        ipArr: [String] = ["22 JAN 2022", "1,418 lbs", "35 mins"],
+        workout: Workout = Workout()
+    ) {
         self.color = color
         self.name = name
         self.ipArr = ipArr
+        self.workout = workout
     }
 }
 

@@ -7,7 +7,11 @@
 
 import UIKit
 
-class SelectWorkoutViewController: UIViewController {
+protocol Reloadable {
+    func reload()
+}
+
+class SelectWorkoutViewController: UIViewController, Reloadable {
     
     lazy var nav: MinNavView = {
         var nav = MinNavView()
@@ -29,32 +33,7 @@ class SelectWorkoutViewController: UIViewController {
     lazy var table: MinHistoryTableView = {
         let view = MinHistoryTableView()
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.model = MinHistoryTableViewModel(cells: [
-            MinHistoryTableViewCellModel(color: .liftRed, name: "Pull", ipArr: [
-                "LAT PULLDOWN",
-                "LAT TWIST",
-                "CABLE ROW",
-                "HAMMER CURLS",
-                "CABLE CURLS",
-                "21s",
-                "REAR DELT EXTENSION"
-            ]),
-            MinHistoryTableViewCellModel(color: .liftTeal, name: "Push", ipArr: [
-                "BENCH PRESS",
-                "MACHINE INCLINE",
-                "MACHINE FLY",
-                "LAT RAISE",
-                "TRICEP PUSHDOWN",
-                "TRICEP EXTENSION",
-                "REAR DELT EXTENSION"
-            ]),
-            MinHistoryTableViewCellModel(color: .liftPurple, name: "Legs", ipArr: [
-                "HACK SQUAT",
-                "HAMSTRING CURLS",
-                "LEG EXTENSIONS",
-                "REAR DELT EXTENSION"
-            ])
-        ])
+        view.model = CRUD.fetchWorkoutsData()
         return view
     }()
     
@@ -63,6 +42,14 @@ class SelectWorkoutViewController: UIViewController {
         super.viewDidLoad()
         setupView()
         setupConstraints()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        willDisappear()
+    }
+    
+    func reload() {
+        table.model = CRUD.fetchWorkoutsData()
     }
     
     func setupView() {

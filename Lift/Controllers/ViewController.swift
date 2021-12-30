@@ -12,7 +12,7 @@ enum HomeOptions {
     case trends
 }
 
-class ViewController: UIViewController, UIGestureRecognizerDelegate {
+class ViewController: UIViewController, UIGestureRecognizerDelegate, Reloadable {
     
     var currOption: HomeOptions = .workouts
     
@@ -47,6 +47,11 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
         view.alpha = 0
         return view
     }()
+    
+    func reload() {
+        table.model = CRUD.fetchHistoryData()
+        trendsTable.model = CRUD.fetchTrendsData()
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()

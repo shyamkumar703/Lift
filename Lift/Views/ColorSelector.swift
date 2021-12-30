@@ -23,6 +23,9 @@ class ColorSelector: UIView, UIGestureRecognizerDelegate {
     
     var currentSelection: Int = 0
     var delegate: ColorSelectorDelegate?
+    var color: UIColor {
+        model.options[currentSelection]
+    }
     
     var model: ColorSelectorModel = ColorSelectorModel() {
         didSet {

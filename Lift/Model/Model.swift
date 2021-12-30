@@ -67,7 +67,7 @@ public class Workout: NSObject, NSCoding {
                 )}
                 ).filter({ $0 != nil }) as? [Int])?.reduce(0, +) {
             let ipArr = [dateFormatter.string(from: date), (numberFormatter.string(from: NSNumber(value: weight)) ?? "") + " lbs", "\(time) mins"]
-            return MinHistoryTableViewCellModel(color: color, name: title, ipArr: ipArr)
+            return MinHistoryTableViewCellModel(color: color, name: title, ipArr: ipArr, workout: self)
         }
         return nil
     }
