@@ -139,6 +139,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate, Reloadable,
     }
     
     func didSelect(workout: Workout) {
+        feedback()
         let vc = WorkoutViewController()
         vc.isObserving = true
         vc.workout = workout
