@@ -15,6 +15,7 @@ class WorkoutViewController: UIViewController {
             updateView()
         }
     }
+    var isObserving: Bool = false
     
     let circleDim: CGFloat = 16
     let dateStarted = Date()
@@ -86,7 +87,10 @@ class WorkoutViewController: UIViewController {
         view.addSubview(tableView)
         setupHideKeyboardOnTap()
         
-        timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(updateTime), userInfo: nil, repeats: true)
+        if !isObserving {
+            timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(updateTime), userInfo: nil, repeats: true)
+        }
+        
         delegate = tableView.model
         
         NotificationCenter.default.addObserver(
@@ -145,22 +149,22 @@ class WorkoutViewController: UIViewController {
             circle.backgroundColor = workout.color
             tableView.model = workout.convertToNative(inWorkout: true)
             tableView.selectionChanged(color: workout.color)
-            
-            titleLabel.attributedText = constructAttributedString(
-                str1: "\(workout.title) ",
-                attr1: titleAttrs,
-                str2: dateStarted.timeElapsed(toDate: Date()),
-                attr2: timeAttrs
-            )
+            updateTime()
         }
     }
     
     @objc func updateTime() {
         if let workout = workout {
+            var str2 = dateStarted.timeElapsed(toDate: Date())
+            if isObserving {
+                if let time = workout.completedTime {
+                    str2 = "\(time):00"
+                }
+            }
             titleLabel.attributedText = constructAttributedString(
                 str1: "\(workout.title) ",
                 attr1: titleAttrs,
-                str2: dateStarted.timeElapsed(toDate: Date()),
+                str2: str2,
                 attr2: timeAttrs
             )
         }
@@ -168,7 +172,8 @@ class WorkoutViewController: UIViewController {
     
     @objc func doneTapped() {
         if let workout = delegate?.toWorkout(),
-           let passedWO = self.workout {
+           let passedWO = self.workout,
+           !isObserving {
             workout.color = passedWO.color
             workout.title = passedWO.title
             workout.completed = true

@@ -97,6 +97,12 @@ class WorkoutTableView: UIView {
         }
     }
     
+    var isEditable: Bool = true {
+        didSet {
+            tableView.isUserInteractionEnabled = isEditable
+        }
+    }
+    
     lazy var footer: WorkoutTableFooter = {
         let footer = WorkoutTableFooter()
         footer.frame = CGRect(x: 0, y: 0, width: 0, height: 100)
@@ -114,7 +120,7 @@ class WorkoutTableView: UIView {
         table.backgroundColor = .clear
         table.register(ExerciseHeader.self, forHeaderFooterViewReuseIdentifier: headerId)
         table.register(SetCell.self, forCellReuseIdentifier: cellId)
-        table.isUserInteractionEnabled = true
+        table.isUserInteractionEnabled = isEditable
         return table
     }()
     

@@ -170,13 +170,15 @@ public class WSet: NSObject, NSCoding {
             setNumber: setNumber,
             goalReps: goalReps,
             weight: weight,
-            inWorkout: inWorkout
+            inWorkout: inWorkout,
+            completedReps: completedReps,
+            completedWeight: completedWeight
         )
         
-        if !inWorkout {
-            model.completedReps = completedReps
-            model.completedWeight = completedWeight
-        }
+//        if !inWorkout {
+//            model.completedReps = completedReps
+//            model.completedWeight = completedWeight
+//        }
         
         return model
     }

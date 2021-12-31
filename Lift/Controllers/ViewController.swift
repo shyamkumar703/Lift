@@ -12,7 +12,7 @@ enum HomeOptions {
     case trends
 }
 
-class ViewController: UIViewController, UIGestureRecognizerDelegate, Reloadable {
+class ViewController: UIViewController, UIGestureRecognizerDelegate, Reloadable, SelectionDelegate {
     
     var currOption: HomeOptions = .workouts
     
@@ -37,6 +37,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate, Reloadable 
         let view = MinHistoryTableView()
         view.translatesAutoresizingMaskIntoConstraints = false
         view.model = CRUD.fetchHistoryData()
+        view.delegate = self
         return view
     }()
     
@@ -135,6 +136,13 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate, Reloadable 
     @objc func plusPressed() {
         feedback()
         present(SelectWorkoutViewController(), animated: true, completion: nil)
+    }
+    
+    func didSelect(workout: Workout) {
+        let vc = WorkoutViewController()
+        vc.isObserving = true
+        vc.workout = workout
+        present(vc, animated: true, completion: nil)
     }
 }
 
