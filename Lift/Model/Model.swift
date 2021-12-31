@@ -84,9 +84,9 @@ public class Workout: NSObject, NSCoding {
         }).filter({$0 != nil}) as? [Int])?.reduce(0, +)
     }
     
-    func convertToNative(inWorkout: Bool) -> WorkoutTableViewModel {
+    func convertToNative(inWorkout: Bool, isObserving: Bool) -> WorkoutTableViewModel {
         let nativeExercises = exercises.map({$0.convertToNative(inWorkout: inWorkout)})
-        return WorkoutTableViewModel(exercises: nativeExercises, inWorkout: inWorkout)
+        return WorkoutTableViewModel(exercises: nativeExercises, inWorkout: inWorkout, isObserving: isObserving)
     }
 }
 

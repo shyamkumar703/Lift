@@ -147,7 +147,7 @@ class WorkoutViewController: UIViewController {
     func updateView() {
         if let workout = workout {
             circle.backgroundColor = workout.color
-            tableView.model = workout.convertToNative(inWorkout: true)
+            tableView.model = workout.convertToNative(inWorkout: true, isObserving: isObserving)
             tableView.selectionChanged(color: workout.color)
             updateTime()
         }

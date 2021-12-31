@@ -17,10 +17,12 @@ protocol SaveDelegate {
 class WorkoutTableViewModel: SaveDelegate {
     var exercises: [ExerciseModel]
     var inWorkout: Bool
+    var isObserving: Bool
     
-    init(exercises: [ExerciseModel] = [], inWorkout: Bool = false) {
+    init(exercises: [ExerciseModel] = [], inWorkout: Bool = false, isObserving: Bool = false) {
         self.exercises = exercises
         self.inWorkout = inWorkout
+        self.isObserving = isObserving
     }
     
     func toWorkout() -> Workout? {
@@ -35,10 +37,12 @@ class WorkoutTableViewModel: SaveDelegate {
 class ExerciseModel {
     var title: String
     var sets: [SetModel]
+    var isObserving: Bool
     
-    init(title: String = "", sets: [SetModel] = []) {
+    init(title: String = "", sets: [SetModel] = [], isObserving: Bool = false) {
         self.title = title
         self.sets = sets
+        self.isObserving = isObserving
     }
     
     func toExercise() -> Exercise? {
@@ -57,6 +61,7 @@ class SetModel {
     var inWorkout: Bool
     var completedReps: Int?
     var completedWeight: Int?
+    var isObserving: Bool
     
     init(
         setNumber: Int = 1,
@@ -64,7 +69,8 @@ class SetModel {
         weight: Int? = nil,
         inWorkout: Bool = false,
         completedReps: Int? = nil,
-        completedWeight: Int? = nil
+        completedWeight: Int? = nil,
+        isObserving: Bool = false
     ) {
         self.setNumber = setNumber
         self.goalReps = goalReps
@@ -72,6 +78,7 @@ class SetModel {
         self.inWorkout = inWorkout
         self.completedReps = completedReps
         self.completedWeight = completedWeight
+        self.isObserving = isObserving
     }
     
     func toWSet() -> WSet? {
@@ -135,7 +142,13 @@ class WorkoutTableView: UIView {
     }
     
     override func layoutSubviews() {
-        tableView.tableFooterView = footer
+        if model.isObserving {
+            let view = UIView()
+            view.backgroundColor = .white
+            tableView.tableFooterView = view
+        } else {
+            tableView.tableFooterView = footer
+        }
     }
     
     func setupView() {
@@ -168,6 +181,7 @@ extension WorkoutTableView: UITableViewDelegate, UITableViewDataSource, HeaderDe
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as? SetCell {
             let cellModel = model.exercises[indexPath.section].sets[indexPath.row]
+            cellModel.isObserving = model.isObserving
             cell.model = cellModel
             return cell
         }
@@ -179,6 +193,7 @@ extension WorkoutTableView: UITableViewDelegate, UITableViewDataSource, HeaderDe
         if let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: headerId) as? ExerciseHeader {
             header.backgroundView = UIView()
             header.backgroundView?.backgroundColor = .white
+            model.exercises[section].isObserving = model.isObserving
             header.model = model.exercises[section]
             header.tag = section
             header.delegate = self
@@ -277,6 +292,8 @@ class ExerciseHeader: UITableViewHeaderFooterView, UITextFieldDelegate {
     
     func updateView() {
         titleTextField.text = model.title
+        titleTextField.isUserInteractionEnabled = !model.isObserving
+        addSetButton.isHidden = model.isObserving
     }
     
     @objc func addSetTapped() {
@@ -451,6 +468,10 @@ class SetCell: UITableViewCell, UITextFieldDelegate {
             if let reps = model.completedReps { completedRepsTextField.text = "\(reps) reps" }
             if let weight = model.completedWeight { completedWeightTextField.text = "\(weight) lbs" }
         }
+        repsTextField.isUserInteractionEnabled = !model.isObserving
+        weightTextField.isUserInteractionEnabled = !model.isObserving
+        completedRepsTextField.isUserInteractionEnabled = !model.isObserving
+        completedWeightTextField.isUserInteractionEnabled = !model.isObserving
     }
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
