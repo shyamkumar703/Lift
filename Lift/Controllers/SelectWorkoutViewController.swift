@@ -11,7 +11,7 @@ protocol Reloadable {
     func reload()
 }
 
-class SelectWorkoutViewController: UIViewController, Reloadable {
+class SelectWorkoutViewController: UIViewController, Reloadable, SelectionDelegate {
     
     lazy var nav: MinNavView = {
         var nav = MinNavView()
@@ -34,6 +34,7 @@ class SelectWorkoutViewController: UIViewController, Reloadable {
         let view = MinHistoryTableView()
         view.translatesAutoresizingMaskIntoConstraints = false
         view.model = CRUD.fetchWorkoutsData()
+        view.delegate = self
         return view
     }()
     
@@ -74,5 +75,9 @@ class SelectWorkoutViewController: UIViewController, Reloadable {
         present(CreateWorkoutViewController(), animated: true, completion: nil)
     }
     
-    
+    func didSelect(workout: Workout) {
+        let newVC = WorkoutViewController()
+        newVC.workout = workout
+        present(newVC, animated: true, completion: nil)
+    }
 }

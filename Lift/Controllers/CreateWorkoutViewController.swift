@@ -9,7 +9,8 @@ import UIKit
 
 class CreateWorkoutViewController: UIViewController {
     
-    var saveDelegate: SaveDelegate?
+    var delegate: SaveDelegate?
+    var keyboardHeightLayoutConstraint: NSLayoutConstraint?
     
     lazy var saveButton: UIButton = {
         let button = UIButton()
@@ -83,7 +84,36 @@ class CreateWorkoutViewController: UIViewController {
         view.addSubview(tableView)
         view.addSubview(saveButton)
         setupHideKeyboardOnTap()
-        self.saveDelegate = tableView.model
+        self.delegate = tableView.model
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(self.keyboardNotification(notification:)),
+            name: UIResponder.keyboardWillChangeFrameNotification,
+            object: nil
+        )
+    }
+    
+    @objc func keyboardNotification(notification: NSNotification) {
+        guard let userInfo = notification.userInfo else { return }
+        
+        let endFrame = (userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue
+        let endFrameY = endFrame?.origin.y ?? 0
+        let duration: TimeInterval = (userInfo[UIResponder.keyboardAnimationDurationUserInfoKey] as? NSNumber)?.doubleValue ?? 0
+        
+        if endFrameY >= UIScreen.main.bounds.size.height {
+            keyboardHeightLayoutConstraint?.constant = 0
+        } else {
+            keyboardHeightLayoutConstraint?.constant = endFrame?.size.height ?? 0
+        }
+        
+        UIView.animateKeyframes(
+            withDuration: duration,
+            delay: 0,
+            animations: {
+                self.view.layoutIfNeeded()
+            },
+            completion: nil
+        )
     }
     
     func setupConstraints() {
@@ -103,12 +133,13 @@ class CreateWorkoutViewController: UIViewController {
         tableView.topAnchor.constraint(equalTo: colorSelector.bottomAnchor, constant: 28).isActive = true
         tableView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
         tableView.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
-        tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
+        keyboardHeightLayoutConstraint = tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
+        keyboardHeightLayoutConstraint?.isActive = true
         
     }
     
     @objc func saveTapped() {
-        if let workout = saveDelegate?.toWorkout(),
+        if let workout = delegate?.toWorkout(),
            let title = workoutNameField.text {
             workout.title = title
             workout.color = colorSelector.color

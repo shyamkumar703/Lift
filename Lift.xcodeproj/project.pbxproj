@@ -41,6 +41,7 @@
 		018E4B94277ADF0D00F0AA9E /* UITextField+Lift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 018E4B93277ADF0D00F0AA9E /* UITextField+Lift.swift */; };
 		01BDDDED277BB0220000F093 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01BDDDEC277BB0220000F093 /* Model.swift */; };
 		01BDDDF0277BCCA00000F093 /* CRUD.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01BDDDEF277BCCA00000F093 /* CRUD.swift */; };
+		01BDDDF2277E6AE50000F093 /* WorkoutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01BDDDF1277E6AE50000F093 /* WorkoutViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -101,6 +102,7 @@
 		018E4B93277ADF0D00F0AA9E /* UITextField+Lift.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+Lift.swift"; sourceTree = "<group>"; };
 		01BDDDEC277BB0220000F093 /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
 		01BDDDEF277BCCA00000F093 /* CRUD.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CRUD.swift; sourceTree = "<group>"; };
+		01BDDDF1277E6AE50000F093 /* WorkoutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -241,6 +243,7 @@
 				010D688E2776E681001FCF9B /* ViewController.swift */,
 				018E4B8B277A9FE100F0AA9E /* SelectWorkoutViewController.swift */,
 				018E4B8D277AA1FB00F0AA9E /* CreateWorkoutViewController.swift */,
+				01BDDDF1277E6AE50000F093 /* WorkoutViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -402,6 +405,7 @@
 				018E4B7B27777D5E00F0AA9E /* TrendsTableView.swift in Sources */,
 				018E4B90277AA3D900F0AA9E /* ColorSelector.swift in Sources */,
 				010D688F2776E681001FCF9B /* ViewController.swift in Sources */,
+				01BDDDF2277E6AE50000F093 /* WorkoutViewController.swift in Sources */,
 				010D68D627770405001FCF9B /* HistoryTableView.swift in Sources */,
 				010D688B2776E681001FCF9B /* AppDelegate.swift in Sources */,
 				010D68D12776F2B7001FCF9B /* StatsView.swift in Sources */,

@@ -8,6 +8,12 @@
 import Foundation
 import UIKit
 
+var timeElapsedFormatter: DateFormatter = {
+    let formatter = DateFormatter()
+    formatter.dateFormat = "mm: ss"
+    return formatter
+}()
+
 var dateFormatter: DateFormatter = {
     let formatter = DateFormatter()
     formatter.dateFormat = "dd MMM yyyy"
@@ -39,10 +45,29 @@ func constrain(view: UIView, to: UIView, constant: CGFloat = 0) {
     view.bottomAnchor.constraint(equalTo: to.bottomAnchor, constant: -1 * constant).isActive = true
 }
 
+func stringFromInterval(interval: TimeInterval) -> String {
+    let minutes = Int(interval / 60)
+    let seconds = Int(interval.truncatingRemainder(dividingBy: 60))
+    if seconds < 10 {
+        return "\(minutes):0\(seconds)"
+    }
+    return "\(minutes):\(seconds)"
+}
+
 extension UIViewController {
     func willDisappear() {
         if let presentingView = self.presentingViewController as? Reloadable {
             presentingView.reload()
         }
+    }
+}
+
+extension Date {
+    static func - (lhs: Date, rhs: Date) -> TimeInterval {
+        return lhs.timeIntervalSinceReferenceDate - rhs.timeIntervalSinceReferenceDate
+    }
+    
+    func timeElapsed(toDate: Date) -> String {
+        return stringFromInterval(interval: toDate - self)
     }
 }

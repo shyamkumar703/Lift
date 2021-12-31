@@ -9,6 +9,10 @@ import UIKit
 
 fileprivate var cellId: String = "workout"
 
+protocol SelectionDelegate {
+    func didSelect(workout: Workout)
+}
+
 struct MinHistoryTableViewCellModel {
     var color: UIColor
     var name: String
@@ -44,12 +48,14 @@ class MinHistoryTableView: UIView {
         }
     }
     
+    var delegate: SelectionDelegate?
+    
     lazy var tableView: UITableView = {
         let table = UITableView()
         table.translatesAutoresizingMaskIntoConstraints = false
         table.delegate = self
         table.dataSource = self
-        table.allowsSelection = false
+        table.allowsSelection = true
         table.backgroundColor = .clear
         table.register(MinHistoryTableViewCell.self, forCellReuseIdentifier: cellId)
         table.tableFooterView = UIView()
@@ -87,6 +93,7 @@ extension MinHistoryTableView: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if let cell = tableView.dequeueReusableCell(withIdentifier: cellId) as? MinHistoryTableViewCell {
             cell.model = model.cells[indexPath.row]
+            cell.selectionStyle = .none
             return cell
         }
         
@@ -95,6 +102,10 @@ extension MinHistoryTableView: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         60
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        delegate?.didSelect(workout: model.cells[indexPath.row].workout)
     }
 }
 

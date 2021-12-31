@@ -83,6 +83,11 @@ public class Workout: NSObject, NSCoding {
             })
         }).filter({$0 != nil}) as? [Int])?.reduce(0, +)
     }
+    
+    func convertToNative(inWorkout: Bool) -> WorkoutTableViewModel {
+        let nativeExercises = exercises.map({$0.convertToNative(inWorkout: inWorkout)})
+        return WorkoutTableViewModel(exercises: nativeExercises, inWorkout: inWorkout)
+    }
 }
 
 public class Exercise: NSObject, NSCoding {
@@ -107,6 +112,11 @@ public class Exercise: NSObject, NSCoding {
     public required init?(coder: NSCoder) {
         self.title = (coder.decodeObject(forKey: Key.title.rawValue) as? String) ?? ""
         self.sets = (coder.decodeObject(forKey: Key.sets.rawValue) as? [WSet]) ?? []
+    }
+    
+    func convertToNative(inWorkout: Bool) -> ExerciseModel {
+        let nativeSets = sets.map({$0.convertToNative(inWorkout: inWorkout)})
+        return ExerciseModel(title: title, sets: nativeSets)
     }
 }
 
@@ -148,10 +158,26 @@ public class WSet: NSObject, NSCoding {
     }
     
     public required init?(coder: NSCoder) {
-        self.setNumber = (coder.decodeObject(forKey: Key.setNumber.rawValue) as? Int) ?? 1
-        self.goalReps = (coder.decodeObject(forKey: Key.goalReps.rawValue) as? Int) ?? 5
-        self.weight = (coder.decodeObject(forKey: Key.weight.rawValue) as? Int) ?? 135
+        self.setNumber = coder.decodeInteger(forKey: Key.setNumber.rawValue)
+        self.goalReps = coder.decodeInteger(forKey: Key.goalReps.rawValue)
+        self.weight = coder.decodeInteger(forKey: Key.weight.rawValue)
         self.completedReps = coder.decodeObject(forKey: Key.completedReps.rawValue) as? Int
         self.completedWeight = coder.decodeObject(forKey: Key.completedWeight.rawValue) as? Int
+    }
+    
+    func convertToNative(inWorkout: Bool) -> SetModel {
+        let model = SetModel(
+            setNumber: setNumber,
+            goalReps: goalReps,
+            weight: weight,
+            inWorkout: inWorkout
+        )
+        
+        if !inWorkout {
+            model.completedReps = completedReps
+            model.completedWeight = completedWeight
+        }
+        
+        return model
     }
 }

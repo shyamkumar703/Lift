@@ -230,7 +230,7 @@ class ExerciseHeader: UITableViewHeaderFooterView, UITextFieldDelegate {
         field.placeholder = "Exercise"
         field.textColor = .black
         field.textAlignment = .left
-        field.font = .regularFont.withSize(20)
+        field.font = .regularFont.withSize(15)
         field.delegate = self
         return field
     }()
@@ -258,7 +258,7 @@ class ExerciseHeader: UITableViewHeaderFooterView, UITextFieldDelegate {
     }
     
     func setupConstraints() {
-        stack.topAnchor.constraint(equalTo: topAnchor, constant: 8).isActive = true
+        stack.topAnchor.constraint(equalTo: topAnchor, constant: 24).isActive = true
         stack.leftAnchor.constraint(equalTo: leftAnchor, constant: 16).isActive = true
         stack.rightAnchor.constraint(equalTo: rightAnchor, constant: -16).isActive = true
         stack.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -8).isActive = true
@@ -325,14 +325,14 @@ class SetCell: UITableViewCell, UITextFieldDelegate {
         let label = UILabel()
         label.textColor = .lightGray
         label.textAlignment = .left
-        label.font = .regularFont.withSize(15)
+        label.font = .regularFont.withSize(13)
         return label
     }()
     
     lazy var repsTextField: UITextField = {
         let field = UITextField()
         field.placeholder = "Reps"
-        field.font = .regularFont.withSize(15)
+        field.font = .regularFont.withSize(13)
         field.keyboardType = .numberPad
         field.textColor = .black
         field.textAlignment = .center
@@ -345,7 +345,7 @@ class SetCell: UITableViewCell, UITextFieldDelegate {
     lazy var weightTextField: UITextField = {
         let field = UITextField()
         field.placeholder = "Weight"
-        field.font = .regularFont.withSize(15)
+        field.font = .regularFont.withSize(13)
         field.textColor = .black
         field.keyboardType = .numberPad
         field.textAlignment = .right
@@ -360,7 +360,7 @@ class SetCell: UITableViewCell, UITextFieldDelegate {
         let label = UILabel()
         label.textColor = .lightGray
         label.textAlignment = .left
-        label.font = .regularFont.withSize(15)
+        label.font = .regularFont.withSize(13)
         label.text = "Completed"
         return label
     }()
@@ -368,7 +368,7 @@ class SetCell: UITableViewCell, UITextFieldDelegate {
     lazy var completedRepsTextField: UITextField = {
         let field = UITextField()
         field.placeholder = "Reps"
-        field.font = .regularFont.withSize(15)
+        field.font = .regularFont.withSize(13)
         field.keyboardType = .numberPad
         field.textColor = .black
         field.textAlignment = .center
@@ -380,7 +380,7 @@ class SetCell: UITableViewCell, UITextFieldDelegate {
     lazy var completedWeightTextField: UITextField = {
         let field = UITextField()
         field.placeholder = "Weight"
-        field.font = .regularFont.withSize(15)
+        field.font = .regularFont.withSize(13)
         field.textColor = .black
         field.keyboardType = .numberPad
         field.textAlignment = .right
@@ -393,6 +393,13 @@ class SetCell: UITableViewCell, UITextFieldDelegate {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setupView()
         setupConstraints()
+    }
+    
+    override func prepareForReuse() {
+        repsTextField.text = ""
+        weightTextField.text = ""
+        completedRepsTextField.text = ""
+        completedWeightTextField.text = ""
     }
     
     required init?(coder: NSCoder) {
