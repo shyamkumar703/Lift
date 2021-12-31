@@ -232,6 +232,10 @@ class ExerciseHeader: UITableViewHeaderFooterView, UITextFieldDelegate {
         field.textAlignment = .left
         field.font = .regularFont.withSize(15)
         field.delegate = self
+        field.attributedPlaceholder = NSAttributedString(
+            string: "Exercise",
+            attributes: [NSAttributedString.Key.foregroundColor: UIColor.gray]
+        )
         return field
     }()
     
@@ -255,6 +259,7 @@ class ExerciseHeader: UITableViewHeaderFooterView, UITextFieldDelegate {
     
     func setupView() {
         addSubview(stack)
+        backgroundColor = .clear
     }
     
     func setupConstraints() {
@@ -269,6 +274,7 @@ class ExerciseHeader: UITableViewHeaderFooterView, UITextFieldDelegate {
     }
     
     @objc func addSetTapped() {
+        feedback()
         delegate?.addSet(to: tag)
     }
     
@@ -331,7 +337,10 @@ class SetCell: UITableViewCell, UITextFieldDelegate {
     
     lazy var repsTextField: UITextField = {
         let field = UITextField()
-        field.placeholder = "Reps"
+        field.attributedPlaceholder = NSAttributedString(
+            string: "Reps",
+            attributes: [NSAttributedString.Key.foregroundColor: UIColor.gray]
+        )
         field.font = .regularFont.withSize(13)
         field.keyboardType = .numberPad
         field.textColor = .black
@@ -344,7 +353,10 @@ class SetCell: UITableViewCell, UITextFieldDelegate {
     
     lazy var weightTextField: UITextField = {
         let field = UITextField()
-        field.placeholder = "Weight"
+        field.attributedPlaceholder = NSAttributedString(
+            string: "Weight",
+            attributes: [NSAttributedString.Key.foregroundColor: UIColor.gray]
+        )
         field.font = .regularFont.withSize(13)
         field.textColor = .black
         field.keyboardType = .numberPad
@@ -367,7 +379,10 @@ class SetCell: UITableViewCell, UITextFieldDelegate {
     
     lazy var completedRepsTextField: UITextField = {
         let field = UITextField()
-        field.placeholder = "Reps"
+        field.attributedPlaceholder = NSAttributedString(
+            string: "Reps",
+            attributes: [NSAttributedString.Key.foregroundColor: UIColor.gray]
+        )
         field.font = .regularFont.withSize(13)
         field.keyboardType = .numberPad
         field.textColor = .black
@@ -379,7 +394,10 @@ class SetCell: UITableViewCell, UITextFieldDelegate {
     
     lazy var completedWeightTextField: UITextField = {
         let field = UITextField()
-        field.placeholder = "Weight"
+        field.attributedPlaceholder = NSAttributedString(
+            string: "Weight",
+            attributes: [NSAttributedString.Key.foregroundColor: UIColor.gray]
+        )
         field.font = .regularFont.withSize(13)
         field.textColor = .black
         field.keyboardType = .numberPad
@@ -408,6 +426,7 @@ class SetCell: UITableViewCell, UITextFieldDelegate {
     
     func setupView() {
         contentView.addSubview(outerStack)
+        backgroundColor = .clear
     }
     
     func setupConstraints() {
@@ -509,6 +528,7 @@ class WorkoutTableFooter: UIView {
     }
     
     @objc func buttonTapped() {
+        feedback()
         delegate?.addExercise()
     }
 }

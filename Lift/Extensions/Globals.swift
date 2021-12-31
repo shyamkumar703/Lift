@@ -8,6 +8,8 @@
 import Foundation
 import UIKit
 
+let feedbackGenerator = UIImpactFeedbackGenerator(style: .medium)
+
 var timeElapsedFormatter: DateFormatter = {
     let formatter = DateFormatter()
     formatter.dateFormat = "mm: ss"
@@ -52,6 +54,11 @@ func stringFromInterval(interval: TimeInterval) -> String {
         return "\(minutes):0\(seconds)"
     }
     return "\(minutes):\(seconds)"
+}
+
+func feedback() {
+    feedbackGenerator.prepare()
+    feedbackGenerator.impactOccurred()
 }
 
 extension UIViewController {

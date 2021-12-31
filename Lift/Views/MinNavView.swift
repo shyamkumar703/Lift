@@ -30,6 +30,7 @@ class MinNavView: UIView {
         label.textAlignment = .left
         label.font = .regularFont.withSize(25)
         label.translatesAutoresizingMaskIntoConstraints = false
+        label.textColor = .black
         return label
     }()
     

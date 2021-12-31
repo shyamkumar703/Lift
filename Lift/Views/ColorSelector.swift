@@ -105,6 +105,7 @@ class ColorSelector: UIView, UIGestureRecognizerDelegate {
     }
     
     @objc func innerViewTapped(_ gr: UITapGestureRecognizer) {
+        feedback()
         if let view = gr.view,
            let superview = view.superview {
             if view.tag == currentSelection { return }

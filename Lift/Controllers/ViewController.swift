@@ -133,6 +133,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate, Reloadable 
     }
     
     @objc func plusPressed() {
+        feedback()
         present(SelectWorkoutViewController(), animated: true, completion: nil)
     }
 }

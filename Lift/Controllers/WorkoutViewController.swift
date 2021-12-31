@@ -176,6 +176,7 @@ class WorkoutViewController: UIViewController {
             workout.completedTime = Int((Date() - dateStarted) / 60)
             CRUD.saveObject(obj: workout, parentType: UserData.self)
         }
+        feedback()
         dismiss(animated: true, completion: nil)
     }
 }

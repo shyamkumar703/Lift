@@ -105,6 +105,7 @@ extension MinHistoryTableView: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        feedback()
         delegate?.didSelect(workout: model.cells[indexPath.row].workout)
     }
 }
@@ -163,6 +164,7 @@ class MinHistoryTableViewCell: UITableViewCell {
     func setupView() {
         addSubview(circleView)
         addSubview(stack)
+        backgroundColor = .clear
     }
     
     func setupConstraints() {

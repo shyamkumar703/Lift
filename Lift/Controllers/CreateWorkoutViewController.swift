@@ -34,7 +34,10 @@ class CreateWorkoutViewController: UIViewController {
         field.translatesAutoresizingMaskIntoConstraints = false
         field.font = .regularFont.withSize(25)
         field.textColor = .black
-        field.placeholder = "Workout Name"
+        field.attributedPlaceholder = NSAttributedString(
+            string: "Workout Name",
+            attributes: [NSAttributedString.Key.foregroundColor: UIColor.gray]
+        )
         return field
     }()
     
@@ -103,7 +106,7 @@ class CreateWorkoutViewController: UIViewController {
         if endFrameY >= UIScreen.main.bounds.size.height {
             keyboardHeightLayoutConstraint?.constant = 0
         } else {
-            keyboardHeightLayoutConstraint?.constant = endFrame?.size.height ?? 0
+            keyboardHeightLayoutConstraint?.constant = -1 * (endFrame?.size.height ?? 0)
         }
         
         UIView.animateKeyframes(
@@ -145,6 +148,7 @@ class CreateWorkoutViewController: UIViewController {
             workout.color = colorSelector.color
             CRUD.saveObject(obj: workout, parentType: UserData.self)
         }
+        feedback()
         dismiss(animated: true, completion: nil)
     }
 }

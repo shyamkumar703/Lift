@@ -51,6 +51,7 @@ class StatsView: UIView {
         label.attributedText = title
         label.textAlignment = alignment
         label.numberOfLines = 2
+        label.textColor = .black
         return label
     }
     

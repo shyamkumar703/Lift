@@ -72,6 +72,7 @@ class SelectWorkoutViewController: UIViewController, Reloadable, SelectionDelega
     }
     
     @objc func plusPressed() {
+        feedback()
         present(CreateWorkoutViewController(), animated: true, completion: nil)
     }
     
