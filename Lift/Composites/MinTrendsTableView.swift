@@ -177,6 +177,7 @@ class MinTrendsTableViewCell: UITableViewCell {
     }
     
     func setupView() {
+        backgroundColor = .clear
         addSubview(circleView)
         addSubview(titleStack)
         addSubview(weightGraphStack)
